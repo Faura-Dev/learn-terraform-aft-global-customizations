@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-    bucket = "faura-terraform-state-backend"
+    bucket = "faura-terraform-state-backend-${random_string.suffix.result}"
     versioning {
         enabled = true
     }
@@ -16,4 +16,10 @@ resource "aws_s3_bucket" "bucket" {
     tags = {
         Name = "S3 Remote Terraform State Store"
     }
+}
+
+resource "random_string" "suffix" {
+    length  = 8
+    special = false
+    upper   = false
 }
